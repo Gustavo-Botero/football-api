@@ -17,6 +17,10 @@ class CreateTeamUseCase {
             team = await TeamRepository.create(request);
         }
 
+        /**
+         * Function to create the relationship between the competition
+         * and the team
+         */
         await CreateCompetitionTeamUseCase.handle(competitionId, team.id);
 
         return team;

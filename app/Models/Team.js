@@ -12,6 +12,14 @@ class Team extends Model {
     competitionTeams() {
         return this.hasMany('App/Models/CompetitionTeam');
     }
+
+    /**
+     * Relation with Player
+     * @returns
+     */
+    players() {
+        return this.hasMany('App/Models/Player');
+    }
 }
 
 module.exports = Team
