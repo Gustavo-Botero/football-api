@@ -1,6 +1,7 @@
 'use strict'
 
 const FootballApiService = use('App/Services/FootballApiService');
+const CreateCompetitionUseCase = use('App/UseCases/Competition/CreateCompetitionUseCase');
 
 class FootballApiController {
 
@@ -14,6 +15,10 @@ class FootballApiController {
     let team = '';
 
     const league = await this.league(leagueCode);
+
+    if(league.data.competition) {
+      await CreateCompetitionUseCase.handle(league.data.competition);
+    }
 
     if (league.data.teams) {
       team = await this.teams(league.data.teams)
