@@ -15,14 +15,15 @@ class FootballApiController {
 
     const league = await this.league(leagueCode);
 
-    if (league.data.area) {
-      team = await this.teams(league.data.seasons)
+    if (league.data.teams) {
+      team = await this.teams(league.data.teams)
     }
 
-    return response.status(league.status).send({
-      league:league.data,
-      teams: team
-    });
+    return response.status(league.status)
+      .send({
+        league: league.data,
+        teams: team
+      });
   }
 
   /**
@@ -31,7 +32,7 @@ class FootballApiController {
    * @returns object
    */
   async league(leagueCode) {
-    const url = `https://api.football-data.org/v2/competitions/${leagueCode}`;
+    const url = `https://api.football-data.org/v2/competitions/${leagueCode}/teams`;
 
     return await FootballApiService.consumeApi(url);
   }
@@ -46,8 +47,8 @@ class FootballApiController {
 
     for (const team of data) {
 
-      if (team.winner != null) {
-        const url = `https://api.football-data.org/v2/teams/${team.winner.id}`;
+      if (team != null) {
+        const url = `https://api.football-data.org/v2/teams/${team.id}`;
         const resTeam = await FootballApiService.consumeApi(url);
 
         teams.push(resTeam.data);
