@@ -3,7 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Competition extends Model {
+class Team extends Model {
 
     /**
      * Relation with CompetitionTeam
@@ -14,4 +14,4 @@ class Competition extends Model {
     }
 }
 
-module.exports = Competition
+module.exports = Team

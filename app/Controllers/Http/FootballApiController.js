@@ -2,26 +2,28 @@
 
 const FootballApiService = use('App/Services/FootballApiService');
 const CreateCompetitionUseCase = use('App/UseCases/Competition/CreateCompetitionUseCase');
+const CreateTeamUseCase = use('App/UseCases/Team/CreateTeamUseCase');
 
 class FootballApiController {
 
   /**
-   * function to consume the api
-   * @param {string} param0
+   * Function to consume the api
+   * @param {String} param0
    * @returns object
    */
   async index({ params, response }) {
     const { leagueCode } = params;
-    let team = '';
+    let competition;
+    let team;
 
     const league = await this.league(leagueCode);
 
     if(league.data.competition) {
-      await CreateCompetitionUseCase.handle(league.data.competition);
+      competition = await CreateCompetitionUseCase.handle(league.data.competition);
     }
 
     if (league.data.teams) {
-      team = await this.teams(league.data.teams)
+      team = await this.teams(league.data.teams, competition.id);
     }
 
     return response.status(league.status)
@@ -32,7 +34,7 @@ class FootballApiController {
   }
 
   /**
-   * function to consult the leagues
+   * Function to consult the leagues
    * @param {string} leagueCode
    * @returns object
    */
@@ -43,11 +45,12 @@ class FootballApiController {
   }
 
   /**
-   * function to consult team members
+   * Function to consult team members
    * @param {object} data
+   * @param {Integer} competitionId
    * @returns array
    */
-  async teams(data) {
+  async teams(data, competitionId) {
     let teams = [];
 
     for (const team of data) {
@@ -55,6 +58,11 @@ class FootballApiController {
       if (team != null) {
         const url = `https://api.football-data.org/v2/teams/${team.id}`;
         const resTeam = await FootballApiService.consumeApi(url);
+
+        if (resTeam.status === 403) {
+          break;
+        }
+        await CreateTeamUseCase.handle(resTeam.data, competitionId);
 
         teams.push(resTeam.data);
       }
