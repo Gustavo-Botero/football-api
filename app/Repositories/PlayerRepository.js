@@ -1,5 +1,5 @@
 const PlayerModel = use('App/Models/Player');
-
+const Database = use('Database')
 class PlayerRepository {
 
   /**
@@ -37,6 +37,20 @@ class PlayerRepository {
       api_id: playerApiId,
       team_id: teamId
     });
+  }
+
+  /**
+   * Function to consult the players of a league
+   * @param {String} leagueCode
+   * @returns object
+   */
+  async getDataByLeagueCode(leagueCode) {
+    return await Database.table('competitions')
+      .join('competition_teams', 'competitions.id', 'competition_teams.competition_id')
+      .join('teams', 'competition_teams.team_id', 'teams.id')
+      .join('players', 'teams.id', 'players.team_id')
+      .where('competitions.code', leagueCode)
+      .select('players.*', 'teams.name');
   }
 }
 
