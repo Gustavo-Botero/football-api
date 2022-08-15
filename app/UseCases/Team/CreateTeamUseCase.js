@@ -1,20 +1,21 @@
 const TeamRepository = use('App/Repositories/TeamRepository');
 const CreateCompetitionTeamUseCase = use('App/UseCases/CompetitionTeam/CreateCompetitionTeamUseCase');
+const CreatePlayerUseCase = use('App/UseCases/Player/CreatePlayerUseCase');
 
 class CreateTeamUseCase {
 
     /**
      * Function to create a team
-     * @param {Object} request
+     * @param {Object} teams
      * @param {Integer} competitionId
      * @returns object
      */
-    async handle(request, competitionId) {
+    async handle(teams, competitionId) {
 
-        let team = await TeamRepository.getByApiId(request.id);
+        let team = await TeamRepository.getByApiId(teams.id);
 
         if (!team) {
-            team = await TeamRepository.create(request);
+            team = await TeamRepository.create(teams);
         }
 
         /**
@@ -22,6 +23,10 @@ class CreateTeamUseCase {
          * and the team
          */
         await CreateCompetitionTeamUseCase.handle(competitionId, team.id);
+
+        if (teams.squad) {
+          await CreatePlayerUseCase.handle(teams.squad, team.id);
+        }
 
         return team;
     }

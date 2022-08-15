@@ -11,9 +11,9 @@ class PlayerSchema extends Schema {
       table.integer('team_id').unsigned().references('id').inTable('teams');
       table.string('name', 45).notNullable();
       table.string('position', 20).nullable();
-      table.string('dateOfBirth', 20).notNullable();
+      table.string('dateOfBirth', 20).nullable();
       table.string('countryOfBirth', 45).nullable();
-      table.string('nationality', 45).notNullable();
+      table.string('nationality', 45).nullable();
       table.timestamps();
     })
   }
