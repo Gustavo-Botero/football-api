@@ -52,18 +52,21 @@ class FootballApiController {
    */
   async teams(data, competitionId) {
     let teams = [];
+    const waitSeconds = seconds => {
+      return new Promise (resolve => {
+        setTimeout(() => {
+          resolve (true);
+        }, seconds);
+      });
+    }
 
     for (const team of data) {
 
       if (team != null) {
+        await waitSeconds(6100);
         const url = `https://api.football-data.org/v2/teams/${team.id}`;
         const resTeam = await FootballApiService.consumeApi(url);
-
-        if (resTeam.status === 403) {
-          break;
-        }
         await CreateTeamUseCase.handle(resTeam.data, competitionId);
-
         teams.push(resTeam.data);
       }
     }
