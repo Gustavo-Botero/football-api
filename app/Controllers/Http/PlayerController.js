@@ -5,7 +5,7 @@ class PlayerController {
 
     /**
      * Function to consult the players of a league
-     * @param {String} param0 
+     * @param {String} param0
      * @returns object
      */
     async index ({params, response}) {
