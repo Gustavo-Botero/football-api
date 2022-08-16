@@ -9,9 +9,9 @@ class PlayerController {
      * @returns object
      */
     async index ({params, response}) {
-        const { leagueCode } = params;
+        const { leagueCode, team } = params;
 
-        let respuesta = await GetDataIndexUseCase.handle(leagueCode)
+        let respuesta = await GetDataIndexUseCase.handle(leagueCode,team)
 
         return response.status(respuesta.status).send(respuesta.data);
     }
