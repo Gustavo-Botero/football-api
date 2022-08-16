@@ -16,4 +16,11 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-
+Route.group(() => {
+    Route.get('import/data/:leagueCode', 'FootballApiController.index');
+    Route.get('players/:leagueCode', 'PlayerController.index');
+    Route.get('team', 'TeamController.index');
+    Route.get('team/:team/:players?', 'TeamController.show');
+    Route.get('competition', 'CompetitionController.index');
+    Route.get('competition/:competition', 'CompetitionController.show');
+}).prefix('api/football-api');
