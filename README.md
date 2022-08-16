@@ -7,8 +7,9 @@ Prueba técnica entravision
     - La base de datos que se usa es MySQL.
  - En la terminar ingresar a la ruta donde tiene el proyecto y correr el comando **adonis key:generate**.
  - Correr el comando **npm install** para que instale todas las dependencias.
- - Ingresar en la terminal el comando **adonis migration:run** para generar las tablas en la base de datos. **NOTA:** la base de datos debe estar creada en MySQL antes de corre el comando.
- - Por ultimo debemos iniciar el servidor de adonis **(adonis serve --dev)** para poder consumir los Endpoints. 
+ - Ingresar en la terminal el comando **adonis migration:run** para generar las tablas en la base de datos. **NOTA:** la base de datos debe estar creada en MySQL antes de correr el comando.
+ - Por último debemos iniciar el servidor de adonis **(adonis serve --dev)** para poder consumir los Endpoints.
+ - Los Endpoint que llevan parámetros con espacios se deben reemplazar los espacios con un guión medio **(-)**.
 
 Puertos a utilizar que no deben estar ocupados o con los servicios locales apagados:
 
