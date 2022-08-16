@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.group(() => {
-    Route.get('import/data/:leagueCode', 'FootballApiController.index');
+    Route.get('import/:leagueCode', 'FootballApiController.index');
     Route.get('players/:leagueCode/:team?', 'PlayerController.index');
     Route.get('team', 'TeamController.index');
     Route.get('team/:team/:players?', 'TeamController.show');
