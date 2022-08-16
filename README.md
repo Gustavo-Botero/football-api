@@ -1,28 +1,30 @@
-# Adonis API application
+Prueba técnica entravision
+--
+* * *
+ - Instalar AdonisJS **npm i -g @adonisjs/cli**.
+ - Clonar el repositorio con **git clone https://github.com/Gustavo-Botero/football-api.git**.
+ - Crear el archivo **.env** en la raíz del proyecto en base al archivo **.env.example** y configurar las variables de entorno.
+    - La base de datos que se usa es MySQL.
+ - En la terminar ingresar a la ruta donde tiene el proyecto y correr el comando **adonis key:generate**.
+ - Correr el comando **npm install** para que instale todas las dependencias.
+ - Ingresar en la terminal el comando **adonis migration:run** para generar las tablas en la base de datos. **NOTA:** la base de datos debe estar creada en MySQL antes de corre el comando.
+ - Por ultimo debemos iniciar el servidor de adonis **(adonis serve --dev)** para poder consumir los Endpoints. 
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+Puertos a utilizar que no deben estar ocupados o con los servicios locales apagados:
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+___Mysql: 3306___
 
-## Setup
+___AdonisJS: 3333___
 
-Use the adonis command to install the blueprint
+Endpoints:
 
-```bash
-adonis new yardstick --api-only
-```
+| Path | Verb | Body Params |
+| -- | -- | -- |
+| http://localhost:3333/api/football-api/import/:leagueCode | GET | leagueCode:string |
+| http://localhost:3333/api/football-api/players/:leagueCode/:team? | GET | leagueCode: string / team: string|
+| http://localhost:3333/api/football-api/team | GET |  |
+| http://localhost:3333/api/football-api/team/:team/:players? | GET | team: string / players: boolean |
+| http://localhost:3333/api/football-api/competition | GET |  |
+| http://localhost:3333/api/football-api/competition/:competition | GET | competition: string |
 
-or manually clone the repo and then run `npm install`.
-
-
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+Autor: Gustavo Adolfo Botero Villalobos © 2022
