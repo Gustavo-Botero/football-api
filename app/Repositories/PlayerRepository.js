@@ -70,6 +70,19 @@ class PlayerRepository {
       })
       .select('players.*', 'teams.name as teamName');
   }
+
+  async getById(idPlayer) {
+    return await PlayerModel.findBy('id', idPlayer);
+  }
+
+  async changeTeam(player, idTeam) {
+    player.team_id = idTeam;
+
+    player.save();
+
+    return player;
+  }
+
 }
 
 module.exports = new PlayerRepository()

@@ -32,6 +32,11 @@ class TeamRepository {
 
         return await TeamModel.findBy('api_id', apiId);
     }
+
+    async getById(id) {
+
+        return await TeamModel.findBy('id', id);
+    }
 }
 
 module.exports = new TeamRepository()
