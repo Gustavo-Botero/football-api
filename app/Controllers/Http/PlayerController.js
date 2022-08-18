@@ -17,6 +17,11 @@ class PlayerController {
         return response.status(respuesta.status).send(respuesta.data);
     }
 
+    /**
+     * Function to change a team player
+     * @param {Integer} param0
+     * @returns object
+     */
     async changeTeam({ params, response }) {
         const { idPlayer, idTeam } = params;
 

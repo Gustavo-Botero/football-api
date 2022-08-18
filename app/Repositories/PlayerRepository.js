@@ -1,7 +1,6 @@
 const PlayerModel = use('App/Models/Player');
 const Database = use('Database')
 class PlayerRepository {
-
   /**
    * Function to create a player
    * @param {Object} players
@@ -17,7 +16,7 @@ class PlayerRepository {
       position: players.position,
       dateOfBirth: players.dateOfBirth,
       countryOfBirth: players.countryOfBirth,
-      nationality: players.nationality
+      nationality: players.nationality,
     });
 
     await player.save();
@@ -32,10 +31,9 @@ class PlayerRepository {
    * @returns object
    */
   async getByPlayerAndTeam(playerApiId, teamId) {
-
     return await PlayerModel.findBy({
       api_id: playerApiId,
-      team_id: teamId
+      team_id: teamId,
     });
   }
 
@@ -45,12 +43,16 @@ class PlayerRepository {
    * @returns object
    */
   async getDataByLeagueCode(leagueCode) {
-    return await Database.table('competitions')
-      .join('competition_teams', 'competitions.id', 'competition_teams.competition_id')
-      .join('teams', 'competition_teams.team_id', 'teams.id')
-      .join('players', 'teams.id', 'players.team_id')
-      .where('competitions.code', leagueCode)
-      .select('players.*', 'teams.name');
+    return await Database.table("competitions")
+      .join(
+        "competition_teams",
+        "competitions.id",
+        "competition_teams.competition_id"
+      )
+      .join("teams", "competition_teams.team_id", "teams.id")
+      .join("players", "teams.id", "players.team_id")
+      .where("competitions.code", leagueCode)
+      .select("players.*", "teams.name");
   }
 
   /**
@@ -60,21 +62,37 @@ class PlayerRepository {
    * @returns object
    */
   async getDataByLeagueCodeAndTeam(leagueCode, team) {
-    return await Database.table('competitions')
-      .join('competition_teams', 'competitions.id', 'competition_teams.competition_id')
-      .join('teams', 'competition_teams.team_id', 'teams.id')
-      .join('players', 'teams.id', 'players.team_id')
+    return await Database.table("competitions")
+      .join(
+        "competition_teams",
+        "competitions.id",
+        "competition_teams.competition_id"
+      )
+      .join("teams", "competition_teams.team_id", "teams.id")
+      .join("players", "teams.id", "players.team_id")
       .where({
-        'competitions.code': leagueCode,
-        'teams.name': team
+        "competitions.code": leagueCode,
+        "teams.name": team,
       })
-      .select('players.*', 'teams.name as teamName');
+      .select("players.*", "teams.name as teamName");
   }
 
+  /**
+   * Function to get record by ID
+   * @param {Integer} idPlayer
+   * @returns object
+   */
   async getById(idPlayer) {
-    return await PlayerModel.findBy('id', idPlayer);
+
+    return await PlayerModel.findBy("id", idPlayer);
   }
 
+  /**
+   * Function to change a team player
+   * @param {PlayerModel} player
+   * @param {Integer} idTeam
+   * @returns object
+   */
   async changeTeam(player, idTeam) {
     player.team_id = idTeam;
 
@@ -82,7 +100,6 @@ class PlayerRepository {
 
     return player;
   }
-
 }
 
 module.exports = new PlayerRepository()

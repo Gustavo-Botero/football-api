@@ -33,6 +33,11 @@ class TeamRepository {
         return await TeamModel.findBy('api_id', apiId);
     }
 
+    /**
+     * Function to get record by ID
+     * @param {Integer} id
+     * @returns object
+     */
     async getById(id) {
 
         return await TeamModel.findBy('id', id);
