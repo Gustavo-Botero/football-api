@@ -12,6 +12,14 @@ class Player extends Model {
     team() {
         return this.belongsTo('App/Models/Team');
     }
+
+    /**
+     * Relation with PlayerHistory
+     * @returns
+     */
+    playerHisorys() {
+        return this.hasMany('App/Models/PlayerHistory');
+    }
 }
 
 module.exports = Player

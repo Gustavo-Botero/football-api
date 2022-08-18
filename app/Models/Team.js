@@ -20,6 +20,14 @@ class Team extends Model {
     players() {
         return this.hasMany('App/Models/Player');
     }
+
+    /**
+     * Relation with PlayerHistory
+     * @returns
+     */
+    playerHisorys() {
+        return this.hasMany('App/Models/PlayerHistory');
+    }
 }
 
 module.exports = Team

@@ -23,4 +23,5 @@ Route.group(() => {
     Route.get('team/:team/:players?', 'TeamController.show');
     Route.get('competition', 'CompetitionController.index');
     Route.get('competition/:competition', 'CompetitionController.show');
+    Route.put('player/:idPlayer/:idTeam', 'PlayerController.changeTeam');
 }).prefix('api/football-api');
